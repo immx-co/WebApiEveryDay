@@ -25,4 +25,27 @@ internal class BookService(IBookRespository bookRepository) : IBookService
     {
         return await bookRepository.GetAllBooksAsync(cancellationToken);
     }
+
+    public async Task<Book> GetBookAsync(int id, CancellationToken cancellationToken)
+    {
+        return await bookRepository.GetBookAsync(id, cancellationToken);
+    }
+
+    public async Task<int> DeleteBookByIdAsync(int id, CancellationToken cancellationToken)
+    {
+        return await bookRepository.DeleteBookById(id, cancellationToken);
+    }
+
+    public async Task<Book> UpdateBookAsync(int id, BookUpdateRequest book, CancellationToken cancellationToken)
+    {
+        var updatedBook = new BookUpdate
+        {
+            Title = book.Title,
+            Description = book.Description,
+            Author = book.Author,
+            Price = book.Price,
+        };
+
+        return await bookRepository.UpdateBook(id, updatedBook, cancellationToken);
+    }
 }

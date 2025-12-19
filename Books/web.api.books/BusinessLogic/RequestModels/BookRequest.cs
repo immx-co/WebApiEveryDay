@@ -2,11 +2,11 @@
 
 public class BookRequest
 {
-    public string Title { get; set; }
+    public required string Title { get; set; }
 
-    public string Description { get; set; }
+    public required string Description { get; set; }
 
-    public string Author { get; set; }
+    public required string Author { get; set; }
 
-    public decimal Price { get; set; }
+    public required decimal Price { get; set; }
 }
