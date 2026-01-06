@@ -1,6 +1,6 @@
 ﻿using web.api.orders.BusinessLogic.RequestModels;
 using web.api.orders.Contracts;
-using web.api.orders.Database;
+using web.api.orders.Database.Items;
 
 namespace web.api.orders.BusinessLogic;
 

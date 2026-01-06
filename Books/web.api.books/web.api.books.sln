@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web.api.books", "web.api.bo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web.api.orders", "..\..\Orders\web.api.orders\web.api.orders.csproj", "{BA661249-A107-4797-8BB9-368B23F8030F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ef.core.demo", "..\..\Demos\ef.core.demo\ef.core.demo.csproj", "{9D4CA114-4692-49FF-A152-2D625B1BCCF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BA661249-A107-4797-8BB9-368B23F8030F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA661249-A107-4797-8BB9-368B23F8030F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA661249-A107-4797-8BB9-368B23F8030F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D4CA114-4692-49FF-A152-2D625B1BCCF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D4CA114-4692-49FF-A152-2D625B1BCCF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D4CA114-4692-49FF-A152-2D625B1BCCF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D4CA114-4692-49FF-A152-2D625B1BCCF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

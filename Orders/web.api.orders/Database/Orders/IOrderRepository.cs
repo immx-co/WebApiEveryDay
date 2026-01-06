@@ -1,6 +1,6 @@
 ﻿using web.api.orders.Contracts;
 
-namespace web.api.orders.Database;
+namespace web.api.orders.Database.Orders;
 
 public interface IOrderRepository
 {

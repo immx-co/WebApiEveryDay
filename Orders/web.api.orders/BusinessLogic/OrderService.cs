@@ -1,6 +1,8 @@
 ﻿using web.api.orders.BusinessLogic.RequestModels;
+using web.api.orders.BusinessLogic.ResponseModels;
 using web.api.orders.Contracts;
-using web.api.orders.Database;
+using web.api.orders.Database.Items;
+using web.api.orders.Database.Orders;
 
 namespace web.api.orders.BusinessLogic;
 
@@ -32,11 +34,11 @@ public class OrderService(
         return await orderRepository.CreateAsync(order, ct);
     } 
 
-    public async Task<Order> GetByIdAsync(Guid id, CancellationToken ct = default)
+    public async Task<OrderResponse> GetByIdAsync(Guid id, CancellationToken ct = default)
     {
-        var order = await orderRepository.GetByIdAsync(id, ct);
+        var dbOrder = await orderRepository.GetByIdAsync(id, ct);
 
-        if (order is null)
+        if (dbOrder is null)
             throw new NullReferenceException($"Заказ с Id == {id} не найден.");
 
         return order;

@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using web.api.orders.Contracts;
 
-namespace web.api.orders.Database;
+namespace web.api.orders.Database.Items;
 
 public class ItemRepository(ApplicationContext dbContext) : IItemRepository
 {
