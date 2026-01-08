@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using web.api.orders.Database;
@@ -11,9 +12,11 @@ using web.api.orders.Database;
 namespace web.api.orders.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20260108113313_UpdateTablesManyToMany")]
+    partial class UpdateTablesManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,22 +79,6 @@ namespace web.api.orders.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Orders", (string)null);
-                });
-
-            modelBuilder.Entity("web.api.orders.Contracts.OrderLine", b =>
-                {
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("OrderId", "ItemId");
-
-                    b.ToTable("OrderLines", (string)null);
                 });
 
             modelBuilder.Entity("ItemOrder", b =>

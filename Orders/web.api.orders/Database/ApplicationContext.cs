@@ -9,6 +9,8 @@ public class ApplicationContext : DbContext
 
     public DbSet<Order> Orders { get; set; }
 
+    public DbSet<OrderLine> OrderLines { get; set; }
+
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
 
@@ -16,7 +18,7 @@ public class ApplicationContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ItemBase>(e =>
+        modelBuilder.Entity<Item>(e =>
         {
             e.ToTable("Items");
             e.Property(x => x.Price).HasPrecision(10, 2);
@@ -24,8 +26,14 @@ public class ApplicationContext : DbContext
 
         modelBuilder.Entity<Order>(e =>
         {
-            modelBuilder.Entity<Order>().ToTable("Orders");
-            modelBuilder.Entity<Order>().Property(x => x.Price).HasPrecision(10, 2);
+            e.ToTable("Orders");
+            e.Property(x => x.Price).HasPrecision(10, 2);
+        });
+
+        modelBuilder.Entity<OrderLine>(e =>
+        {
+            e.ToTable("OrderLines");
+            e.HasKey(x => new { x.OrderId, x.ItemId });
         });
     }
 }

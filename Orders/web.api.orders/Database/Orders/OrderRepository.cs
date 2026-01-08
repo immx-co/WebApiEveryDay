@@ -15,6 +15,7 @@ public class OrderRepository(ApplicationContext dbContext) : IOrderRepository
     public async Task<Order> GetByIdAsync(Guid id, CancellationToken ct)
     {
         var order = await dbContext.Orders
+            .Include(o => o.Items)
             .FirstOrDefaultAsync(o => o.Id == id);
 
         if (order == null)

@@ -1,4 +1,5 @@
 ﻿using web.api.orders.BusinessLogic.RequestModels;
+using web.api.orders.BusinessLogic.ResponseModels;
 using web.api.orders.Contracts;
 using web.api.orders.Database.Items;
 
@@ -17,8 +18,15 @@ public class ItemService(IItemRepository itemRepository) : IItemService
         return await itemRepository.CreateAsync(createdItem, ct);
     }
 
-    public async Task<List<Item>> GetAllAsync(CancellationToken ct = default)
+    public async Task<List<ItemResponse>> GetAllAsync(CancellationToken ct = default)
     {
-        return await itemRepository.GetAllAsync(ct);
+        var dbItems = await itemRepository.GetAllAsync(ct);
+
+        return dbItems.Select(i => new ItemResponse
+        {
+            Id = i.Id,
+            Name = i.Name,
+            Price = i.Price,
+        }).ToList();
     }
 }
