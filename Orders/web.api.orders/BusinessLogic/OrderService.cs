@@ -80,7 +80,7 @@ public class OrderService(
         {
             Id = dbOrder.Id,
             Name = dbOrder.Name,
-            Price = dbOrder.Price,
+            Price = items.Select(i => i.Price).Sum(),
             Created = dbOrder.Created,
             Items = items,
         };
