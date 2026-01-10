@@ -1,0 +1,6 @@
+@category.web.api_HostAddress = http://localhost:5058
+
+GET {{category.web.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
