@@ -2,6 +2,9 @@
 using category.core;
 using category.core.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.Mvc;
+using category.application.Contracts.Response;
 
 namespace category.application;
 
@@ -18,15 +21,18 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         var uploadsDir = Path.Combine(env.WebRootPath, "uploads", "categories");
         Directory.CreateDirectory(uploadsDir);
 
+        var categoryId = Guid.NewGuid();
+
         var extension = Path.GetExtension(categoryRequest.Image.FileName);
-        var fileName = $"{Guid.NewGuid():N}{extension}";
+        var fileName = $"{categoryId}{extension}";
         var filePath = Path.Combine(uploadsDir, fileName);
 
-        await using var stream = System.IO.File.Create(filePath);
+        await using var stream = File.Create(filePath);
         await categoryRequest.Image.CopyToAsync(stream, ct);
 
         var category = new Category
         {
+            Id = categoryId,
             Name = categoryRequest.Name,
             CreatedAt = DateTime.UtcNow,
             ImagePath = filePath,
@@ -34,5 +40,18 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         };
 
         return await categoryRepository.CreateAsync(category, ct);
+    }
+
+    public async Task<ImageInfo> GetImagePathAsync(Guid categoryId, CancellationToken ct = default)
+    {
+        var imagePath = await categoryRepository.GetImagePathAsync(categoryId, ct);
+        if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath))
+            throw new ArgumentException("Не найдена картинка по переданному идентификатору категории.");
+
+        var provider = new FileExtensionContentTypeProvider();
+        if (!provider.TryGetContentType(imagePath, out var contentType))
+            contentType = "application/octet-stream";
+
+        return new ImageInfo(imagePath, contentType);
     }
 }

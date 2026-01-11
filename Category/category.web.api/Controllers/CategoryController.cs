@@ -1,7 +1,5 @@
 ﻿using category.application;
 using category.application.Contracts.Request;
-using category.core;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace category.web.api.Controllers;
@@ -31,6 +29,27 @@ public class CategoryController : Controller
             var result = await _categoryService.CreateAsync(categoryRequest, _env);
             return Ok(result);
         }
+        catch (ArgumentException ex)
+        {
+            return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
+
+    [HttpGet("{categoryId:guid}/image")]
+    [Produces("image/jpeg", "image/png", "image/webp", "image/gif")]
+    [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetImage(Guid categoryId)
+    {
+        try
+        {
+            var imageInfo = await _categoryService.GetImagePathAsync(categoryId);
+            return PhysicalFile(imageInfo.ImagePath, imageInfo.ContentType);
+        }
         catch(ArgumentException ex)
         {
             return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
@@ -39,6 +58,5 @@ public class CategoryController : Controller
         {
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
-        
     }
 }
