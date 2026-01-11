@@ -20,4 +20,15 @@ public class CategoryRepository(ApplicationContext dbContext) : ICategoryReposit
             return category.ImagePath;
         return null;
     }
+
+    public async Task<List<Category>> GetAllAsync(CancellationToken ct)
+    {
+        return await dbContext.Categories.ToListAsync(ct);
+    }
+
+    public async Task<Guid> DeleteByIdAsync(Guid categoryId, CancellationToken ct)
+    {
+        await dbContext.Categories.Where(c => c.Id == categoryId).ExecuteDeleteAsync();
+        return categoryId;
+    } 
 }

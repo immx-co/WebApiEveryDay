@@ -1,4 +1,3 @@
-
 namespace category.web.api;
 
 public class Program
@@ -13,6 +12,7 @@ public class Program
 
         builder.Services.AddDataAccess();
         builder.Services.AddBusinessLogic();
+        builder.Services.AddBackgroundServices();
 
         var app = builder.Build();
 

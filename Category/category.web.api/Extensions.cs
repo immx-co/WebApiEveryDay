@@ -1,5 +1,6 @@
 ﻿using category.application;
 using category.core;
+using category.infrastructure;
 using category.persistance;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,13 @@ public static class Extensions
     public static IServiceCollection AddBusinessLogic(this IServiceCollection serviceCollection)
     {
         serviceCollection.AddScoped<ICategoryService, CategoryService>();
+        return serviceCollection;
+    }
+
+    public static IServiceCollection AddBackgroundServices(this IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddScoped<IMonitoringService, MonitoringService>();
+        serviceCollection.AddHostedService<BackgroundMonitoringService>();
         return serviceCollection;
     }
 }
