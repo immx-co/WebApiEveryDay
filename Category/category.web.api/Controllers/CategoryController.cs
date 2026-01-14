@@ -59,4 +59,18 @@ public class CategoryController : Controller
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
+
+    [HttpGet("gelAll")]
+    public async Task<IActionResult> GetAll()
+    {
+        try
+        {
+            var allCategoryInfos = await _categoryService.GetAllCategoryInfos();
+            return Ok(allCategoryInfos);
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+    }
 }

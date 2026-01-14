@@ -3,7 +3,6 @@ using category.core;
 using category.core.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.AspNetCore.Mvc;
 using category.application.Contracts.Response;
 
 namespace category.application;
@@ -53,5 +52,15 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
             contentType = "application/octet-stream";
 
         return new ImageInfo(imagePath, contentType);
+    }
+
+    public async Task<List<CategoryInfo>> GetAllCategoryInfos(CancellationToken ct = default)
+    {
+        var allDbCategories = await categoryRepository.GetAllAsync(ct);
+        return allDbCategories.Select(c => new CategoryInfo
+        {
+            Id = c.Id,
+            Name = c.Name,
+        }).ToList();
     }
 }

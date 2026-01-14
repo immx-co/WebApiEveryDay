@@ -6,7 +6,7 @@ public class MonitoringService(ICategoryRepository categoryRepository) : IMonito
 {
     private int _step = 0;
 
-    private readonly TimeSpan _timespan = TimeSpan.FromHours(1);
+    private readonly TimeSpan _timespan = TimeSpan.FromDays(365);
 
     public async Task MonitorExpiredCategories(CancellationToken ct)
     {
@@ -25,7 +25,7 @@ public class MonitoringService(ICategoryRepository categoryRepository) : IMonito
             _step++;
             Console.WriteLine($"Прочекано: {_step}...");
 
-            await Task.Delay(TimeSpan.FromSeconds(5), ct);
+            await Task.Delay(TimeSpan.FromMinutes(30), ct);
         }
     }
 }

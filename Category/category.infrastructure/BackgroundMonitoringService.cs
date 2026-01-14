@@ -6,8 +6,6 @@ namespace category.infrastructure;
 
 public class BackgroundMonitoringService : BackgroundService
 {
-    private int _step = 0;
-
     private readonly IServiceScopeFactory _scopeFactory;
 
     public BackgroundMonitoringService(IServiceScopeFactory scopeFactory)
